@@ -1,0 +1,24 @@
+syntax = "proto3";
+option go_package="./;proto";
+
+package proto;
+// 定义流式请求信息
+message StreamRequest{
+    //流式请求参数
+    string stream_data = 1;
+}
+
+// 定义响应信息
+message SimpleResponse{
+    //响应码
+    int32 code = 1;
+    //响应值
+    string value = 2;
+}
+
+
+//客户端流式rpc，只要在请求的参数前添加stream即可
+service StreamClient{
+    // 客户端流式rpc，在请求的参数前添加stream
+    rpc RouteList (stream StreamRequest) returns (SimpleResponse){};
+}
